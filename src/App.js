@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import Madlib from './Madlib.js';
+import firebase from './firebase.js'
+import Results from './Results.js';
+// import Madlib from './Madlib.js';
 
 
 class App extends Component {
@@ -15,6 +17,7 @@ class App extends Component {
         period: ''
       },
       displayMadlib: false,
+      hideInputs: false,
       madlibTemplate: ['This is a noun: ', '. This is an adjective: ', '. This is an adverb: ', '. This is a number: ', '. And this is a sentence: ', '.'],
       madlib: ''
     };
@@ -29,19 +32,33 @@ class App extends Component {
       }
     });
   }
-  
-  // handleSubmit = (event) => {
-  //   console.log(this.state.usersWords)
-  //   event.preventDefault();
-  // }
 
-  displayMadlib = () => {
+  errorCheck = (e) => {
+    e.preventDefault();
     const copyOfWords = Object.values(this.state.usersWords)
+    const trimmedWords = copyOfWords.map((i) => {
+      return i.trim()
+    })
+    
+    const failedWords = trimmedWords.filter((i) => {
+      if (i === '') {
+        return 'fail'
+      }
+    })
+
+    if (failedWords.length > 1) {
+      alert('Error!')
+    } else {
+      this.displayMadlib(trimmedWords, e)
+    }
+  }
+
+  displayMadlib = (wordsArray) => {
     const madlibsArray = [...this.state.madlibTemplate]
 
     const generateMadlib = madlibsArray.map((i, k) => {
       return (
-        i + copyOfWords[k]
+        i + wordsArray[k]
       )
     })
 
@@ -49,6 +66,13 @@ class App extends Component {
     this.setState({madlib: completeMadlib})
 
     this.setState({displayMadlib: !this.state.displayMadlib})
+    this.setState({hideInputs: true})
+  }
+
+  handleSave = (madlib) => {
+    const dbRef = firebase.database().ref();
+
+    dbRef.push(madlib);
   }
 
   render() {
@@ -60,35 +84,51 @@ class App extends Component {
           <p>Write in the words you think match the prompts and then click submit.</p>
         </header>
         <main>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Noun:
-              <input type="text" value={noun} onChange={(e) => this.handleChange('noun', e)}/>
-            </label>
+          {this.state.hideInputs ? null : 
+            <form id="madlibPrompts" onSubmit={(e) => this.errorCheck(e)}>
+              <label>
+                Noun:
+                <input type="text" value={noun} onChange={(e) => this.handleChange('noun', e)} required/>
+              </label>
 
-            <label>
-              Adjective:
-              <input type="text" value={adjective} onChange={(e) => this.handleChange('adjective', e)}/>  
-            </label>
+              <label>
+                Adjective:
+                <input type="text" value={adjective} onChange={(e) => this.handleChange('adjective', e)} required/>  
+              </label>
 
-            <label>
-              Adverb:
-              <input type="text" value={adverb} onChange={(e) => this.handleChange('adverb', e)}/>
-            </label>
+              <label>
+                Adverb:
+                <input type="text" value={adverb} onChange={(e) => this.handleChange('adverb', e)} required/>
+              </label>
+              
+              <label>
+                Number:
+                <input type="text" value={number} onChange={(e) => this.handleChange('number', e)} required/>
+              </label>
+              
+              <label>
+                Sentence:
+                <textarea value={sentence} onChange={(e) => this.handleChange('sentence', e)} required/>
+              </label>
+            </form>
+          }
             
-            <label>
-              Number:
-              <input type="text" value={number} onChange={(e) => this.handleChange('number', e)}/>
-            </label>
-            
-            <label>
-              Sentence:
-              <textarea value={sentence} onChange={(e) => this.handleChange('sentence', e)}/>
-            </label>
-          </form>
-            
-          <button onClick={this.displayMadlib}>Click to display the madlib!</button>
-          {this.state.displayMadlib ? <Madlib propMadlib={this.state.madlib} /> : null}
+          {this.state.displayMadlib ? 
+            <section>
+              <h2>Here's your Madlib!</h2>
+              <p>{this.state.madlib}</p>
+            </section>
+          : null}
+
+          <section className="buttonNav">
+            {this.state.displayMadlib ? null : 
+              <button type="submit" form="madlibPrompts">Click to display the madlib!</button>}
+            {this.state.hideInputs ? 
+              <button onClick={() => this.handleSave(this.state.madlib)}>Save Madlib!</button> 
+            : null}
+          </section>
+
+          {this.state.displayMadlib ? <Results /> : null}
         </main>
       </Fragment>
     );
