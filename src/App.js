@@ -19,7 +19,9 @@ class App extends Component {
       displayMadlib: false,
       hideInputs: false,
       madlibTemplate: ['This is a noun: ', '. This is an adjective: ', '. This is an adverb: ', '. This is a number: ', '. And this is a sentence: ', '.'],
-      madlib: ''
+      madlib: '',
+      alreadySaved: false,
+      restart: false,
     };
   }
 
@@ -72,7 +74,19 @@ class App extends Component {
   handleSave = (madlib) => {
     const dbRef = firebase.database().ref();
 
-    dbRef.push(madlib);
+    if (this.state.alreadySaved === !true) {
+      dbRef.push(madlib);
+    }
+
+    this.setState({alreadySaved: true})
+  }
+
+  handleRefresh = () => {
+    this.setState({
+      displayMadlib: false,
+      hideInputs: false,
+      alreadySaved: false,
+    })
   }
 
   render() {
@@ -123,9 +137,16 @@ class App extends Component {
           <section className="buttonNav">
             {this.state.displayMadlib ? null : 
               <button type="submit" form="madlibPrompts">Click to display the madlib!</button>}
+            
             {this.state.hideInputs ? 
-              <button onClick={() => this.handleSave(this.state.madlib)}>Save Madlib!</button> 
+            <Fragment>
+              <button onClick={() => this.handleSave(this.state.madlib)}>
+                {this.state.alreadySaved ? 'Saved!' : 'Save Madlib!'}
+              </button> 
+              <button onClick={this.handleRefresh} >Back to Start</button>
+            </Fragment>
             : null}
+
           </section>
 
           {this.state.displayMadlib ? <Results /> : null}
