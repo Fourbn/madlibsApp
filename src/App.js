@@ -44,9 +44,13 @@ class App extends Component {
     
     const failedWords = trimmedWords.filter((i) => {
       if (i === '') {
-        return 'fail'
+        return true
+      } else {
+        return false
       }
     })
+
+    console.log(failedWords)
 
     if (failedWords.length > 1) {
       alert('Error!')

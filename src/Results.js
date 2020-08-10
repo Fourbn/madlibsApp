@@ -17,8 +17,13 @@ class Results extends Component {
 
          const updateLeaderboard = [];
 
-         for (let madlib in data) {
-            updateLeaderboard.push( data[madlib] )
+         for (let userMadlib in data) {
+            const madlibObject = {
+               id: userMadlib,
+               madlib: data[userMadlib]
+            }
+
+            updateLeaderboard.push( madlibObject )
          }
 
          this.setState({
@@ -31,8 +36,8 @@ class Results extends Component {
       return(
          <ul>
             {
-               this.state.leaderboard.map( (madlib, key) => {
-                  return <li key={key}>{madlib}</li>
+               this.state.leaderboard.map( (madlibObject) => {
+                  return <li key={madlibObject.id}>{madlibObject.madlib}</li>
                })
             }
          </ul>
