@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import firebase from './firebase.js'
 import Results from './Results.js';
-// import Madlib from './Madlib.js';
+import './styles/styles.scss'
 
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
         sentence: '',
         period: ''
       },
-      displayMadlib: false,
+      madlibCreated: false,
       hideInputs: false,
       madlibTemplate: ['This is a noun: ', '. This is an adjective: ', '. This is an adverb: ', '. This is a number: ', '. And this is a sentence: ', '.'],
       madlib: '',
@@ -71,7 +71,7 @@ class App extends Component {
     const completeMadlib = generateMadlib.join('')
     this.setState({madlib: completeMadlib})
 
-    this.setState({displayMadlib: !this.state.displayMadlib})
+    this.setState({madlibCreated: !this.state.madlibCreated})
     this.setState({hideInputs: true})
   }
 
@@ -87,7 +87,7 @@ class App extends Component {
 
   handleRefresh = () => {
     this.setState({
-      displayMadlib: false,
+      madlibCreated: false,
       hideInputs: false,
       alreadySaved: false,
     })
@@ -99,11 +99,15 @@ class App extends Component {
       <Fragment>
         <header>
           <h1>Madlibs!</h1>
-          <p>Write in the words you think match the prompts and then click submit.</p>
+          <p>{
+            this.state.madlibCreated ? 
+            'Great job! Now you can save your work and see what other people think of your funny writing.' 
+            : 'Write in the words you think match the prompts and then click submit.'
+          }</p>
         </header>
         <main>
           {this.state.hideInputs ? null : 
-            <form id="madlibPrompts" onSubmit={(e) => this.errorCheck(e)}>
+            <form id="madlibPrompts" className="madlibPrompts" onSubmit={(e) => this.errorCheck(e)}>
               <label>
                 Noun:
                 <input type="text" value={noun} onChange={(e) => this.handleChange('noun', e)} required/>
@@ -131,29 +135,29 @@ class App extends Component {
             </form>
           }
             
-          {this.state.displayMadlib ? 
-            <section>
+          {this.state.madlibCreated ? 
+            <section className="madlibResult" >
               <h2>Here's your Madlib!</h2>
               <p>{this.state.madlib}</p>
             </section>
           : null}
 
           <section className="buttonNav">
-            {this.state.displayMadlib ? null : 
+            {this.state.madlibCreated ? null : 
               <button type="submit" form="madlibPrompts">Click to display the madlib!</button>}
             
-            {this.state.hideInputs ? 
+            {this.state.hideInputs ?
             <Fragment>
-              <button onClick={() => this.handleSave(this.state.madlib)}>
-                {this.state.alreadySaved ? 'Saved!' : 'Save Madlib!'}
+              <button onClick={ () => this.handleSave(this.state.madlib) }>
+                { this.state.alreadySaved ? 'Saved!' : 'Save Madlib!' }
               </button> 
-              <button onClick={this.handleRefresh} >Back to Start</button>
+              <button onClick={ this.handleRefresh } >Back to Start</button>
             </Fragment>
             : null}
 
           </section>
 
-          {this.state.displayMadlib ? <Results /> : null}
+          {this.state.madlibCreated ? <Results /> : null}
         </main>
       </Fragment>
     );
