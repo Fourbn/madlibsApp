@@ -1,0 +1,72 @@
+.madlibPrompts {
+   margin-bottom: 20px;
+   min-height: 50vh;
+   display: grid;
+   grid-template-columns: 10% min-content 70%;
+   grid-template-rows: repeat(5, 1fr);
+   grid-gap: 10px;
+
+   label {
+      padding: 0 5px;
+      margin-bottom: -1px;
+      text-align: right;
+      align-self: end;
+      border-left: 1px solid $green;
+      width: 100%;
+   }
+
+   input, textarea {
+      margin-bottom: 1px;
+      align-self: end;
+
+      &:hover, 
+      &:focus {
+         background: $palePurple;
+      }
+   }
+
+   .input1 {
+      grid-row: 1;
+      grid-column: 2;
+
+      & + input {
+         grid-column: 3;
+      }
+   }
+
+   .input2 {
+      grid-row: 2;
+      grid-column: 2;
+
+      & + input {
+         grid-column: 3;
+      }
+   }
+
+   .input3 {
+      grid-row: 3;
+      grid-column: 2;
+
+      & + input {
+         grid-column: 3;
+      }
+   }
+
+   .input4 {
+      grid-row: 4;
+      grid-column: 2;
+
+      & + input {
+         grid-column: 3;
+      }
+   }
+
+   .input5 {
+      grid-row: 5;
+      grid-column: 2;
+
+      & + textarea {
+         grid-column: 3;
+      }
+   }
+}

@@ -97,7 +97,7 @@ class App extends Component {
     const { noun, adjective, adverb, number, sentence} = this.state.usersWords
     return (
       <Fragment>
-        <header>
+        <header className="wrapper" >
           <h1>Madlibs!</h1>
           <p>{
             this.state.madlibCreated ? 
@@ -105,33 +105,23 @@ class App extends Component {
             : 'Write in the words you think match the prompts and then click submit.'
           }</p>
         </header>
-        <main>
+        <main className="wrapper" >
           {this.state.hideInputs ? null : 
             <form id="madlibPrompts" className="madlibPrompts" onSubmit={(e) => this.errorCheck(e)}>
-              <label>
-                Noun:
-                <input type="text" value={noun} onChange={(e) => this.handleChange('noun', e)} required/>
-              </label>
+              <label id="input1" className="input1">Noun:</label>
+              <input type="text" htmlFor="input1" value={noun} onChange={(e) => this.handleChange('noun', e)} required/>
 
-              <label>
-                Adjective:
-                <input type="text" value={adjective} onChange={(e) => this.handleChange('adjective', e)} required/>  
-              </label>
+              <label id="input2" className="input2">Adjective:</label>
+              <input type="text" htmlFor="input2" value={adjective} onChange={(e) => this.handleChange('adjective', e)} required/>  
 
-              <label>
-                Adverb:
-                <input type="text" value={adverb} onChange={(e) => this.handleChange('adverb', e)} required/>
-              </label>
+              <label id="input3" className="input3">Adverb:</label>
+              <input type="text" htmlFor="input3" value={adverb} onChange={(e) => this.handleChange('adverb', e)} required/>
               
-              <label>
-                Number:
-                <input type="text" value={number} onChange={(e) => this.handleChange('number', e)} required/>
-              </label>
+              <label id="input4" className="input4">Number:</label>
+              <input type="text" htmlFor="input4" value={number} onChange={(e) => this.handleChange('number', e)} required/>
               
-              <label>
-                Sentence:
-                <textarea value={sentence} onChange={(e) => this.handleChange('sentence', e)} required/>
-              </label>
+              <label id="input5" className="input5">Sentence:</label>
+              <textarea htmlFor="input5" value={sentence} onChange={(e) => this.handleChange('sentence', e)} required/>
             </form>
           }
             
@@ -159,6 +149,9 @@ class App extends Component {
 
           {this.state.madlibCreated ? <Results /> : null}
         </main>
+        <footer className="wrapper" >
+          <p>Created by Philip Turkiewicz 2020</p>
+        </footer>
       </Fragment>
     );
   }

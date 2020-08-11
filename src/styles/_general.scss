@@ -1,0 +1,57 @@
+body {
+   background-color: $siteBackground;
+}
+
+h1, h2, h3, p, label, input, textarea, ul, li {
+   margin: 0;
+   padding: 0;
+}
+
+img {
+   max-width: 100%;
+   display: block;
+   height: auto;
+}
+
+li {
+   list-style: none;
+}
+
+h1, h2, h3, p, label, li {
+   color: $fontColor;
+   font-family: $bodyText;
+}
+
+input, textarea {
+   font-family: $userWords;
+   font-size: 1.75rem;
+   padding: 0px 15px;
+   border: none;
+   border-bottom: 2px solid $fontColor;
+   height: 30px;
+   background: $siteBackground;
+   resize: none;
+   padding-bottom: -5px;
+}
+
+.wrapper {
+   max-width: 1200px;
+   width: 95%;
+   margin: 0 auto;
+}
+
+// BUTTON & BUTTON NAV STYLES
+button {
+   @include button;
+
+   &:hover {
+      @include buttonHover;
+   }
+}
+
+.buttonNav {
+   margin: 40px 0;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-evenly;
+}

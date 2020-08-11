@@ -1,0 +1,47 @@
+//DESIGN PLAN
+//Old timey scroll, notebooks, old journals, library, scientific drawings, illuminated letters
+
+//COLOR PALETTE
+//text: #424C55 (charcoal)
+//background1: #F5EDF0 (lavender blush)
+//background2: #886F68 (cinerous, chocolate brown)
+//dark brown: #3D2C2E (old burgundy)
+//pale purple: #D2CEED (languid lavender)
+//green: #74B492
+//gold: #BDA549
+
+//FONTS
+//potential: just me again down here, nothing you could do, reenie beanie*, cedarville cursive, 
+
+//User Word: Reenie Beanie
+//Body Font: Open Sans 400
+//Heading Font: Open Sans 700
+
+// VARIABLES ================================
+$userWords: 'Reenie Beanie', cursive;
+$bodyText: 'Bentham', sans-serif;
+
+$fontColor: #353E45;
+$siteBackground: #F5EDF0;
+$darkBrown: #3D2C2E;
+$gold: #BDA549;
+$green: #74B492;
+$palePurple: #D2CEED;
+
+
+// MIXINS ===================================
+@mixin button {
+   font-family: $bodyText;
+   color: $fontColor;
+   font-weight: 700;
+   padding: 10px 20px;
+   background: $palePurple;
+   border: 2px solid $siteBackground;
+   cursor: pointer;
+}
+
+@mixin buttonHover {
+   background-color: $gold;
+   border: 2px solid $palePurple;
+}
+
