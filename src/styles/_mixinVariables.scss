@@ -35,13 +35,13 @@ $palePurple: #D2CEED;
    color: $fontColor;
    font-weight: 700;
    padding: 10px 20px;
-   background: $palePurple;
-   border: 2px solid $siteBackground;
+   background: $siteBackground;
+   border: 2px solid $darkBrown;
    cursor: pointer;
 }
 
 @mixin buttonHover {
    background-color: $gold;
-   border: 2px solid $palePurple;
+   border: 2px solid $darkBrown;
 }
 

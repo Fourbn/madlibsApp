@@ -130,7 +130,7 @@ class App extends Component {
 
           <section className="buttonNav">
             {this.state.madlibCreated ? null : 
-              <button type="submit" form="madlibPrompts">Click to display the madlib!</button>}
+              <button type="submit" form="madlibPrompts">Madlib Time!</button>}
             
             {this.state.hideInputs ?
             <Fragment>
