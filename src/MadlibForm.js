@@ -41,7 +41,7 @@ class MadlibForm extends Component {
 
    render() {
       return(
-         <form id="madlibPrompts" className="madlibPrompts" >
+         <form id="madlibPrompts" className="madlibPrompts" onSubmit={(event) => this.props.propFormSubmit(event, this.state.usersWords)} >
             {this.state.prompts.map((prompt, index) => {
                return (
                   <Fragment key={index}>
@@ -50,6 +50,7 @@ class MadlibForm extends Component {
                   </Fragment>
                )
             })}
+            <button>Submit me!</button>
          </form>
       )
    }
