@@ -6,6 +6,7 @@ class MadlibForm extends Component {
       super()
       this.state = {
          prompts: [],
+         usersWords: []
       }
    }
 
@@ -14,39 +15,42 @@ class MadlibForm extends Component {
 
       dbRef.on('value', snapshot => {
          const userInputs = snapshot.val().dentist.userInputs
-         // const values = userInputs.map(prompt => {
-         //    return prompt.value
-         // })
-         userInputs.forEach((prompt) => {
-            this.setState({
+         const values = userInputs.map(prompt => {
+            const valueObj = {
                [prompt.value]: ''
-            })
+            }
+
+            return valueObj
          })
 
          this.setState({
             prompts: userInputs,
+            usersWords: values
          })
 
          console.log(this.state)
       })
    }
 
-   handleChange = (word, event) => {
-      
+   handleChange = (index, event) => {
+      const wordsCopy = [...this.state.usersWords]
+
+      wordsCopy[index][event.target.name] = event.target.value
+
       this.setState({
-         [word]: event.target.value
-      });
-      // console.log(this.state.usersWords[index])
+         usersWords: wordsCopy
+      })
    }
 
    render() {
       return(
          <form id="madlibPrompts" className="madlibPrompts" >
             {this.state.prompts.map((prompt, index) => {
+               console.log(this.state.usersWords[prompt.value])
                return (
                   <Fragment key={index}>
                      <label id={'input' + index} className={'input' + index} >{prompt.name}</label>
-                     <input type="text" htmlFor={'input' + index} value={this.state[prompt.value][prompt.value]} onChange={(e) => this.handleChange(prompt.value, e)} required />
+                     <input type="text" htmlFor={'input' + index} name={prompt.value} value={this.state.usersWords[prompt.value]} onChange={(e) => this.handleChange(index, e)} required />
                   </Fragment>
                )
             })}
