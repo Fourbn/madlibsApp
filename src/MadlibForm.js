@@ -19,7 +19,6 @@ class MadlibForm extends Component {
             const valueObj = {
                [prompt.value]: ''
             }
-
             return valueObj
          })
 
@@ -27,8 +26,6 @@ class MadlibForm extends Component {
             prompts: userInputs,
             usersWords: values
          })
-
-         console.log(this.state)
       })
    }
 
@@ -46,7 +43,6 @@ class MadlibForm extends Component {
       return(
          <form id="madlibPrompts" className="madlibPrompts" >
             {this.state.prompts.map((prompt, index) => {
-               console.log(this.state.usersWords[prompt.value])
                return (
                   <Fragment key={index}>
                      <label id={'input' + index} className={'input' + index} >{prompt.name}</label>
