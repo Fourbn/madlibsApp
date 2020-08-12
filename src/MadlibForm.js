@@ -31,7 +31,7 @@ class MadlibForm extends Component {
       })
    }
 
-   handleChange = (word, index, event) => {
+   handleChange = (word, event) => {
       
       this.setState({
          [word]: event.target.value
@@ -46,7 +46,7 @@ class MadlibForm extends Component {
                return (
                   <Fragment key={index}>
                      <label id={'input' + index} className={'input' + index} >{prompt.name}</label>
-                     <input type="text" htmlFor={'input' + index} value={this.state[prompt.value][prompt.value]} onChange={(e) => this.handleChange(prompt.value, index, e)} required />
+                     <input type="text" htmlFor={'input' + index} value={this.state[prompt.value][prompt.value]} onChange={(e) => this.handleChange(prompt.value, e)} required />
                   </Fragment>
                )
             })}
