@@ -1,7 +1,7 @@
 header {
    padding: 20px 0;
    display: grid;
-   grid-template-columns: 10% 90%;
+   grid-template-columns: 10% 1fr;
    grid-gap: 10px;
 
    h1 {
@@ -9,7 +9,6 @@ header {
       grid-column: 2;
       align-self: end;
       border-bottom: 1px solid $green;
-      margin-right: 60px;
    }
 
    p {
