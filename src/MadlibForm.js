@@ -12,7 +12,6 @@ class MadlibForm extends Component {
 
    componentDidMount() {
       const dbRef = firebase.database().ref('madlibData')
-
       dbRef.on('value', snapshot => {
          const userInputs = snapshot.val().dentist.userInputs
          const values = userInputs.map(prompt => {
@@ -21,7 +20,6 @@ class MadlibForm extends Component {
             }
             return valueObj
          })
-
          this.setState({
             prompts: userInputs,
             usersWords: values
@@ -31,7 +29,6 @@ class MadlibForm extends Component {
 
    handleChange = (index, event) => {
       const wordsCopy = [...this.state.usersWords]
-
       wordsCopy[index][event.target.name] = event.target.value
 
       this.setState({
@@ -42,6 +39,7 @@ class MadlibForm extends Component {
    render() {
       return(
          <form id="madlibPrompts" className="madlibPrompts" onSubmit={(event) => this.props.propFormSubmit(event, this.state.usersWords)} >
+            <div className="formContainer">
             {this.state.prompts.map((prompt, index) => {
                return (
                   <Fragment key={index}>
@@ -50,7 +48,7 @@ class MadlibForm extends Component {
                   </Fragment>
                )
             })}
-            <button>Submit me!</button>
+            </div>
          </form>
       )
    }

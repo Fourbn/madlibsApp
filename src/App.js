@@ -34,7 +34,6 @@ class App extends Component {
     const failedWords = array.filter((i) => {
       return i === ''
     })
-
     return failedWords.length === 0
   }
 
@@ -42,7 +41,6 @@ class App extends Component {
     const finishedLib = [...this.state.madlibTemplate].map((i, k) => {
       return i + '<span>' + array[k] + '</span>'
     })
-
     this.setState({
       madlib: finishedLib.join('')
     })
@@ -50,7 +48,6 @@ class App extends Component {
 
   handleFormSubmit = (event, userInputs) => {
     event.preventDefault();
-
     const wordArray = userInputs.map((prompt) => {
       for (const value in prompt) {
         return prompt[value].trim()
@@ -69,8 +66,8 @@ class App extends Component {
     }
   }
 
-// =========================================
 
+// =========================================
   handleSave = (madlib) => {
     const dbRef = firebase.database().ref('leaderboard');
 
@@ -88,7 +85,6 @@ class App extends Component {
       alreadySaved: false,
     })
   }
-
 // ===============================================
 
   render() {
@@ -127,7 +123,6 @@ class App extends Component {
               <button onClick={ this.handleRefresh } >Back to Start</button>
             </Fragment>
             : null}
-
           </section>
 
           {this.state.madlibCreated ? <Results /> : null}
