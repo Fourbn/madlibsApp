@@ -35,11 +35,13 @@ class Results extends Component {
    render() {
       return(
          <ul className="leaderboard" >
+            <h2>Leaderboard</h2>
             {
                this.state.leaderboard.map( ( madlibObject ) => {
                   return (
                   <li key={ madlibObject.id }>
-                     { madlibObject.madlib }
+                     <h3>Madlib by User</h3>
+                     <p>{madlibObject.madlib}</p>
                   </li>
                   )
                })

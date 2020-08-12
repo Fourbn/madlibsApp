@@ -43,11 +43,7 @@ class App extends Component {
     })
     
     const failedWords = trimmedWords.filter((i) => {
-      if (i === '') {
-        return true
-      } else {
-        return false
-      }
+      return i === ''
     })
 
     console.log(failedWords)
