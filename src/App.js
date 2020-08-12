@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import firebase from './firebase.js'
-import MadlibForm from './MadlibForm.js'
+import firebase from './firebase.js';
+import parse from 'html-react-parser';
+import MadlibForm from './MadlibForm.js';
 import Results from './Results.js';
 import './styles/styles.scss'
 
@@ -94,8 +95,8 @@ class App extends Component {
           <h1>Madlibs!</h1>
           <p>{
             this.state.madlibCreated ? 
-            'Great job! Now you can save your work and see what other people think of your funny writing.' 
-            : 'Write in the words you think match the prompts and then click submit.'
+            'Great job! If you like what you\'ve done, Save it to our leaderboard. Or you can Go Back and try again.' 
+            : 'The best part about Madlibs is that it\'s always a surprise! Write in the silly words below and Get Started!'
           }</p>
         </header>
         <main className="wrapper" >
@@ -107,13 +108,13 @@ class App extends Component {
           {this.state.madlibCreated ? 
             <section className="madlibResult" >
               <h2>Here's your Madlib!</h2>
-              <p>{this.state.madlib}</p>
+              <p>{parse(this.state.madlib)}</p>
             </section>
           : null}
 
           <section className="buttonNav">
             {this.state.madlibCreated ? null : 
-              <button type="submit" form="madlibPrompts">Madlib Time!</button>}
+              <button type="submit" form="madlibPrompts">Get Started!</button>}
             
             {this.state.hideInputs ?
             <Fragment>
