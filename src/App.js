@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import firebase from './firebase.js'
+import MadlibForm from './MadlibForm.js'
 import Results from './Results.js';
 import './styles/styles.scss'
 
@@ -102,6 +103,8 @@ class App extends Component {
           }</p>
         </header>
         <main className="wrapper" >
+          <MadlibForm />
+
           {this.state.hideInputs ? null : 
             <form id="madlibPrompts" className="madlibPrompts" onSubmit={(e) => this.errorCheck(e)}>
               <label id="input1" className="input1">Noun:</label>

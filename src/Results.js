@@ -10,7 +10,7 @@ class Results extends Component {
    }
 
    componentDidMount() {
-      const dbRef = firebase.database().ref();
+      const dbRef = firebase.database().ref('leaderboard');
 
       dbRef.on('value', (snapshot) => {
          const data = snapshot.val();
