@@ -71,11 +71,16 @@ class App extends Component {
 // =========================================
   handleSave = (madlib) => {
     const dbRef = firebase.database().ref('leaderboard');
-
-    if (this.state.alreadySaved === !true) {
-      dbRef.push(madlib);
+    const dbObject = {
+      madlib: madlib,
+      title: 'A Visit to the Dentist',
+      user: 'User',
+      likes: 0
     }
 
+    if (this.state.alreadySaved === !true) {
+      dbRef.push(dbObject);
+    }
     this.setState({alreadySaved: true})
   }
 
@@ -126,7 +131,8 @@ class App extends Component {
             : null}
           </section>
 
-          {this.state.madlibCreated ? <Results /> : null}
+          {/* {this.state.madlibCreated ? <Results /> : null} */}
+          <Results />
         </main>
         <footer className="wrapper" >
           <p>Created by Philip Turkiewicz 2020</p>

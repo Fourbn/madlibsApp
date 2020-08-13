@@ -44,7 +44,8 @@ input, textarea {
 button {
    @include button;
 
-   &:hover {
+   &:hover, 
+   &:focus {
       @include buttonHover;
    }
 }

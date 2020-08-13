@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import firebase from './firebase.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons' 
 import parse from 'html-react-parser';
 
 class Results extends Component {
@@ -12,7 +14,8 @@ class Results extends Component {
    constructor() {
       super()
       this.state = {
-         leaderboard: []
+         leaderboard: [],
+         toggleLiked: false
       }
    }
 
@@ -40,6 +43,24 @@ class Results extends Component {
       })
    }
 
+   handleLike = (event) => {
+      const likeId = event.target.dataset.id
+      const dbRef = firebase.database().ref('leaderboard')
+      const likedMadlib = [...this.state.leaderboard].filter((madlib) => {
+         return madlib.id === likeId
+      })
+
+      likedMadlib[0].madlib.likes++
+      dbRef.child(likeId).update(likedMadlib[0].madlib)
+
+      let click = 0
+      click++
+      if (click > 0) {
+         const thisButton = document.getElementById(likeId)
+         thisButton.disabled = true
+      }
+   }
+
    componentWillUnmount() {
       this._isMounted = false;
    }
@@ -52,9 +73,14 @@ class Results extends Component {
                {
                   this.state.leaderboard.map( ( madlibObject ) => {
                      return (
-                     <li key={ madlibObject.id }>
-                        <h3>Madlib by User</h3>
-                        <p>{parse(madlibObject.madlib)}</p>
+                     <li key={ madlibObject.id } >
+                        <div className="header">
+                           <h3>{madlibObject.madlib.title} by {madlibObject.madlib.user}</h3>
+                           <button id={madlibObject.id} data-id={madlibObject.id} onClick={this.handleLike} >
+                              <FontAwesomeIcon data-id={madlibObject.id} icon={faThumbsUp} /> {madlibObject.madlib.likes}
+                           </button>
+                        </div>
+                        <p>{parse(madlibObject.madlib.madlib)}</p>
                      </li>
                      )
                   })
