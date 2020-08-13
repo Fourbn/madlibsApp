@@ -50,15 +50,22 @@ class Results extends Component {
          return madlib.id === likeId
       })
 
-      likedMadlib[0].madlib.likes++
-      dbRef.child(likeId).update(likedMadlib[0].madlib)
+      console.log(likedMadlib[0])
 
-      let click = 0
-      click++
-      if (click > 0) {
-         const thisButton = document.getElementById(likeId)
-         thisButton.disabled = true
-      }
+      //Catches if the like button returns an undefined value and ensure that React doesn't break. The button just doesn't respond and the user can click again
+      if (likedMadlib && likedMadlib[0]) {
+         //Checks to see if the user has already clicked the button and submitted a like. If so, it will disable the button before they can submit another one.
+         let click = 0
+         click++
+         if (click > 0) {
+            const thisButton = document.getElementById(likeId)
+            thisButton.disabled = true
+         }
+
+         likedMadlib[0].madlib.likes++
+         dbRef.child(likeId).update(likedMadlib[0].madlib);
+      } 
+
    }
 
    componentWillUnmount() {

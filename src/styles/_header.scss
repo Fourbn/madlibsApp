@@ -1,19 +1,35 @@
 header {
    padding: 20px 0;
    display: grid;
-   grid-template-columns: 10% 1fr;
+   grid-template-columns: 10% 1fr .5fr;
    grid-gap: 10px;
+   position: relative;
+
+   &::after {
+      content: '';
+      width: 88%;
+      height: 1px;
+      background: $green;
+      position: absolute;
+      bottom: 46px;
+      right: 9px;
+   }
+
+   form {
+      display: flex;
+      align-items: center;
+      padding-top: 10px;
+   }
 
    h1 {
       font-size: 3rem;
       grid-column: 2;
       align-self: end;
-      border-bottom: 1px solid $green;
    }
 
    p {
       grid-row: 2;
-      grid-column: 2;
+      grid-column: 2 / 4;
       padding-left: 2px;
    }
 }
