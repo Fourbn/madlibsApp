@@ -13,6 +13,7 @@ class App extends Component {
       madlibTemplate: [],
       spillOver: '',
       madlib: '',
+      userName: '',
       madlibCreated: false,
       hideInputs: false,
       alreadySaved: false,
@@ -28,6 +29,11 @@ class App extends Component {
         madlibTemplate: snapshot.val().story,
         spillOver: snapshot.val().spillOver
       })
+    })
+  }
+  handleUserName = (event) => {
+    this.setState({
+      userName: event.target.value
     })
   }
 
@@ -56,6 +62,12 @@ class App extends Component {
       return true
     })
 
+    if (this.state.userName === '') {
+      this.setState({
+        userName: 'Anonymous'
+      })
+    }
+
     if (this.handleErrors(wordArray)) {
       this.generateMadlib(wordArray)
       this.setState({
@@ -70,12 +82,18 @@ class App extends Component {
 
 // =========================================
   handleSave = (madlib) => {
-    const dbRef = firebase.database().ref('leaderboard');
 
-    if (this.state.alreadySaved === !true) {
-      dbRef.push(madlib);
+    const dbRef = firebase.database().ref('leaderboard');
+    const dbObject = {
+      madlib: madlib,
+      title: 'A Visit to the Dentist',
+      user: this.state.userName,
+      likes: 0
     }
 
+    if (this.state.alreadySaved === !true) {
+      dbRef.push(dbObject);
+    }
     this.setState({alreadySaved: true})
   }
 
@@ -92,7 +110,11 @@ class App extends Component {
     return (
       <Fragment>
         <header className="wrapper" >
-          <h1>Madlibs!</h1>
+          <h1>A Visit to the Dentist</h1>
+          <form action="" id="userNameForm">
+            <label htmlFor="userName">by</label>
+            <input onChange={this.handleUserName} type="text" id="userName" placeholder="YOUR NAME HERE" value={this.state.userName} required />
+          </form>
           <p>{
             this.state.madlibCreated ? 
             'Great job! If you like what you\'ve done, Save it to our leaderboard. Or you can Go Back and try again.' 

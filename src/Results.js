@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import firebase from './firebase.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons' 
 import parse from 'html-react-parser';
 
 class Results extends Component {
@@ -12,7 +14,8 @@ class Results extends Component {
    constructor() {
       super()
       this.state = {
-         leaderboard: []
+         leaderboard: [],
+         toggleLiked: false
       }
    }
 
@@ -40,6 +43,31 @@ class Results extends Component {
       })
    }
 
+   handleLike = (event) => {
+      const likeId = event.target.dataset.id
+      const dbRef = firebase.database().ref('leaderboard')
+      const likedMadlib = [...this.state.leaderboard].filter((madlib) => {
+         return madlib.id === likeId
+      })
+
+      console.log(likedMadlib[0])
+
+      //Catches if the like button returns an undefined value and ensure that React doesn't break. The button just doesn't respond and the user can click again
+      if (likedMadlib && likedMadlib[0]) {
+         //Checks to see if the user has already clicked the button and submitted a like. If so, it will disable the button before they can submit another one.
+         let click = 0
+         click++
+         if (click > 0) {
+            const thisButton = document.getElementById(likeId)
+            thisButton.disabled = true
+         }
+
+         likedMadlib[0].madlib.likes++
+         dbRef.child(likeId).update(likedMadlib[0].madlib);
+      } 
+
+   }
+
    componentWillUnmount() {
       this._isMounted = false;
    }
@@ -52,9 +80,14 @@ class Results extends Component {
                {
                   this.state.leaderboard.map( ( madlibObject ) => {
                      return (
-                     <li key={ madlibObject.id }>
-                        <h3>Madlib by User</h3>
-                        <p>{parse(madlibObject.madlib)}</p>
+                     <li key={ madlibObject.id } >
+                        <div className="header">
+                           <h3>{madlibObject.madlib.title} by {madlibObject.madlib.user}</h3>
+                           <button id={madlibObject.id} data-id={madlibObject.id} onClick={this.handleLike} >
+                              <FontAwesomeIcon data-id={madlibObject.id} icon={faThumbsUp} /> {madlibObject.madlib.likes}
+                           </button>
+                        </div>
+                        <p>{parse(madlibObject.madlib.madlib)}</p>
                      </li>
                      )
                   })
