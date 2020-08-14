@@ -11,7 +11,7 @@ class MadlibForm extends Component {
    }
 
    componentDidMount() {
-      const dbRef = firebase.database().ref('madlibData')
+      const dbRef = firebase.database().ref( 'madlibData' )
       dbRef.on('value', snapshot => {
          const userInputs = snapshot.val()[this.props.propPathing].userInputs
          const values = userInputs.map(prompt => {
@@ -27,12 +27,12 @@ class MadlibForm extends Component {
       })
    }
 
-   componentDidUpdate(prevProps) {
-      if (prevProps.propPathing !== this.props.propPathing) {
+   componentDidUpdate( prevProps ) {
+      if ( prevProps.propPathing !== this.props.propPathing ) {
          this.setState({
             usersWords: []
          })
-         const dbRef = firebase.database().ref('madlibData')
+         const dbRef = firebase.database().ref( 'madlibData' )
          dbRef.on('value', snapshot => {
             const userInputs = snapshot.val()[this.props.propPathing].userInputs
             const values = userInputs.map(prompt => {
@@ -49,7 +49,7 @@ class MadlibForm extends Component {
       }
    }
 
-   handleChange = (index, event) => {
+   handleChange = ( index, event ) => {
       const wordsCopy = [...this.state.usersWords]
       wordsCopy[index][event.target.name] = event.target.value
 
@@ -60,13 +60,15 @@ class MadlibForm extends Component {
 
    render() {
       return(
-         <form id="madlibPrompts" className="madlibPrompts" onSubmit={(event) => this.props.propFormSubmit(event, this.state.usersWords)} >
+         <form id="madlibPrompts" 
+         className="madlibPrompts" 
+         onSubmit={( event ) => this.props.propFormSubmit( event, this.state.usersWords )} >
             <div className="formContainer">
-            {this.state.prompts.map((prompt, index) => {
+            {this.state.prompts.map(( prompt, index ) => {
                return (
                   <Fragment key={index}>
                      <label id={'input' + index} className={'input' + index} >{prompt.name}</label>
-                     <input type="text" htmlFor={'input' + index} name={prompt.value} value={this.state.usersWords[index][prompt.value]} onChange={(e) => this.handleChange(index, e)} required />
+                     <input type="text" htmlFor={'input' + index} name={prompt.value} value={this.state.usersWords[index][prompt.value]} onChange={( event ) => this.handleChange( index, event )} required />
                   </Fragment>
                )
             })}

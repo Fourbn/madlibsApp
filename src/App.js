@@ -25,9 +25,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const dbRef = firebase.database().ref('madlibData/' + this.state.dbPath)
+    const dbRef = firebase.database().ref( 'madlibData/' + this.state.dbPath )
 
-    dbRef.on('value', (snapshot) => {
+    dbRef.on('value', ( snapshot ) => {
       this.setState({
         title: snapshot.val().title,
         madlibTemplate: snapshot.val().story,
@@ -36,11 +36,11 @@ class App extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.dbPath !== this.state.dbPath) {
-      const dbRef = firebase.database().ref('madlibData/' + this.state.dbPath)
+  componentDidUpdate( prevProps, prevState ) {
+    if ( prevState.dbPath !== this.state.dbPath ) {
+      const dbRef = firebase.database().ref( 'madlibData/' + this.state.dbPath )
   
-      dbRef.on('value', (snapshot) => {
+      dbRef.on('value', ( snapshot ) => {
         this.setState({
           title: snapshot.val().title,
           madlibTemplate: snapshot.val().story,
@@ -51,45 +51,50 @@ class App extends Component {
 
   }
 
-  handleUserName = (event) => {
+  handleUserName = ( event ) => {
     this.setState({
       userName: event.target.value
     })
   }
 
-  handleErrors = (array) => {
-    const failedWords = array.filter((i) => {
+  handleErrors = ( array ) => {
+    const failedWords = array.filter(( i ) => {
       return i === ''
     })
     return failedWords.length === 0
   }
 
-  generateMadlib = (array) => {
-    const finishedLib = [...this.state.madlibTemplate].map((i, k) => {
+  generateMadlib = ( array ) => {
+    const finishedLib = [...this.state.madlibTemplate].map(( i, k ) => {
       return i + '<span>' + array[k] + '</span>'
     })
+
+    if ( this.state.spillOver !== 0 ) {
+      finishedLib.push( this.state.spillOver )
+    }
+
     this.setState({
       madlib: finishedLib.join('')
     })
   }
 
-  handleFormSubmit = (event, userInputs) => {
+  handleFormSubmit = ( event, userInputs ) => {
     event.preventDefault();
-    const wordArray = userInputs.map((prompt) => {
-      for (const value in prompt) {
+    const wordArray = userInputs.map(( prompt ) => {
+      for ( const value in prompt ) {
         return prompt[value].trim()
       }
       return true
     })
 
-    if (this.state.userName === '') {
+    if ( this.state.userName === '' ) {
       this.setState({
         userName: 'Anonymous'
       })
     }
 
-    if (this.handleErrors(wordArray)) {
-      this.generateMadlib(wordArray)
+    if ( this.handleErrors( wordArray ) ) {
+      this.generateMadlib( wordArray )
       this.setState({
         madlibCreated: !this.state.madlibCreated,
         hideInputs: true
@@ -101,9 +106,9 @@ class App extends Component {
 
 
 // =========================================
-  handleSave = (madlib, event) => {
+  handleSave = ( madlib, event ) => {
 
-    const dbRef = firebase.database().ref('leaderboard');
+    const dbRef = firebase.database().ref( 'leaderboard' );
     const dbObject = {
       madlib: madlib,
       title: this.state.title,
@@ -111,11 +116,11 @@ class App extends Component {
       likes: 0
     }
 
-    if (this.state.alreadySaved === !true) {
-      dbRef.push(dbObject);
+    if ( this.state.alreadySaved === !true ) {
+      dbRef.push( dbObject );
     }
 
-    this.setState({alreadySaved: true})
+    this.setState( {alreadySaved: true} )
     event.target.disabled = true
   }
 
@@ -127,22 +132,20 @@ class App extends Component {
     })
   }
 
-  switchMadlib = (event) => {
+  switchMadlib = ( event ) => {
     const confirmed = window.confirm('If you switch Madlibs, you\'ll lose all your words! Are you sure?')
 
-    if (confirmed) {
+    if ( confirmed ) {
       this.setState({
         dbPath: event.target.value,
       })
     }
   }
 
-  slideMenu = (event) => {
-    if (event.target.nodeName === 'DIV') {
-      this.setState({
-        slideIn: !this.state.slideIn
-      })
-    }
+  slideMenu = () => {
+    this.setState({
+      slideIn: !this.state.slideIn
+    })
   }
 // ===============================================
 
@@ -150,20 +153,43 @@ class App extends Component {
     return (
       <Fragment>
         <header className="wrapper" >
-          <h1>{this.state.title}</h1>
+          <h1>{ this.state.title }</h1>
           <div className="userName">
-            <label htmlFor="userName">by</label>
-            <input onChange={this.handleUserName} type="text" id="userName" placeholder="YOUR NAME HERE" value={this.state.userName} required />
+            <label 
+              htmlFor="userName" 
+              aria-label="Enter your pen name here" >
+                by
+            </label>
+            <input 
+              onChange={ this.handleUserName } 
+              type="text" id="userName" 
+              placeholder="YOUR NAME HERE" 
+              value={ this.state.userName } 
+              required />
           </div>
-          <div onClick={(event) => this.slideMenu(event)} className={"madlibChoices" + (this.state.hideInputs ? ' hidden' : '') + (this.state.slideIn ? ' slideIn' : '')}>
-            <button onClick={(event) => this.switchMadlib(event)} value="dentist" >A Visit to the Dentist</button>
-            <button onClick={(event) => this.switchMadlib(event)} value="pirate" >Talk like a Pirate!</button>
+          <p>
+            {
+              this.state.madlibCreated 
+              ? 'Great job! If you like what you\'ve done, Save it to our leaderboard. Or you can Go Back and try again.' 
+              : 'The best part about Madlibs is that it\'s always a surprise! Write in the silly words below and Get Started!'
+            }
+          </p>
+          <div onClick={ this.slideMenu } 
+            className={"madlibChoices" + 
+            (this.state.hideInputs ? ' hidden' : '') + 
+            (this.state.slideIn ? ' slideIn' : '')}>
+
+              <button onClick={( event ) => this.switchMadlib( event )} 
+              value="dentist" 
+              aria-label="Click here to choose the Dentist Madlib" >
+                A Visit to the Dentist
+              </button>
+              <button onClick={( event ) => this.switchMadlib( event )} 
+              value="pirate" 
+              aria-label="Click here to choose the Pirate Madlib" >
+                Talk like a Pirate!
+              </button>
           </div>
-          <p>{
-            this.state.madlibCreated ? 
-            'Great job! If you like what you\'ve done, Save it to our leaderboard. Or you can Go Back and try again.' 
-            : 'The best part about Madlibs is that it\'s always a surprise! Write in the silly words below and Get Started!'
-          }</p>
         </header>
         <main className="wrapper" >
 
@@ -174,20 +200,29 @@ class App extends Component {
           {this.state.madlibCreated ? 
             <section className="madlibResult" >
               <h2>Here's your Madlib!</h2>
-              <p>{parse(this.state.madlib)}</p>
+              <p>{ parse( this.state.madlib ) }</p>
             </section>
           : null}
 
           <section className="buttonNav">
             {this.state.madlibCreated ? null : 
-              <button type="submit" form="madlibPrompts">Get Started!</button>}
+              <button type="submit" 
+              form="madlibPrompts" 
+              aria-label="This button will create your Madlib" >
+                Get Started!
+              </button>}
             
             {this.state.hideInputs ?
             <Fragment>
-              <button className="saveButton" onClick={ (event) => this.handleSave(this.state.madlib, event) }>
+              <button className="saveButton" 
+              onClick={ ( event ) => this.handleSave( this.state.madlib, event ) }>
                 { this.state.alreadySaved ? 'Saved!' : 'Save Madlib!' }
               </button> 
-              <button onClick={ this.handleRefresh } >Back to Start</button>
+              <button onClick={ this.handleRefresh } 
+              title="This will reset your words" 
+              aria-label="This will also reset your words" >
+                Back to Start
+              </button>
             </Fragment>
             : null}
           </section>

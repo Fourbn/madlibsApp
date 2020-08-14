@@ -8,23 +8,22 @@
    }
 
    .header {
-      position: relative;
+      display: flex;
+      justify-content: space-between;
 
       h3 {
          padding-bottom: 5px;
-         padding-right: 50px;
-         border-bottom: 1px solid $green;
+         width: 70%;
+         align-self: flex-end;
       }
       
       button {
          font-size: 1.5rem;
          border: none;
          background: none;
-         padding: 10px;
-         position: absolute;
-         right: -12px;
-         top: -15px;
+         padding: 5px 10px;
          transition: color .3s;
+         min-width: 50px;
 
          &:hover, 
          &:focus {
@@ -48,12 +47,13 @@
       grid-gap: 10px;
    
       li {
-         padding: 15px;
+         padding: 10px 15px 15px 15px;
          border: 1px solid $gold;
       }
    
       p {
-         margin-top: 15px;
+         padding-top: 15px;
+         border-top: 1px solid $green;
       }
    }
 }
