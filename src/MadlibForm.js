@@ -13,7 +13,7 @@ class MadlibForm extends Component {
    componentDidMount() {
       const dbRef = firebase.database().ref('madlibData')
       dbRef.on('value', snapshot => {
-         const userInputs = snapshot.val().dentist.userInputs
+         const userInputs = snapshot.val()[this.props.propPathing].userInputs
          const values = userInputs.map(prompt => {
             const valueObj = {
                [prompt.value]: ''
@@ -25,6 +25,25 @@ class MadlibForm extends Component {
             usersWords: values
          })
       })
+   }
+
+   componentDidUpdate(prevProps) {
+      if (prevProps.propPathing !== this.props.propPathing) {
+         const dbRef = firebase.database().ref('madlibData')
+         dbRef.on('value', snapshot => {
+            const userInputs = snapshot.val()[this.props.propPathing].userInputs
+            const values = userInputs.map(prompt => {
+               const valueObj = {
+                  [prompt.value]: ''
+               }
+               return valueObj
+            })
+            this.setState({
+               prompts: userInputs,
+               usersWords: values
+            })
+         })
+      }
    }
 
    handleChange = (index, event) => {
