@@ -95,7 +95,7 @@ class App extends Component {
         hideInputs: true
       })
     } else {
-      alert('Error')
+      alert('Oops! It looks like you missed a word. Make sure each prompt has a word buddy.')
     }
   }
 
@@ -128,9 +128,13 @@ class App extends Component {
   }
 
   switchMadlib = (event) => {
-    this.setState({
-      dbPath: event.target.value,
-    })
+    const confirmed = window.confirm('If you switch Madlibs, you\'ll lose all your words! Are you sure?')
+
+    if (confirmed) {
+      this.setState({
+        dbPath: event.target.value,
+      })
+    }
   }
 
   slideMenu = (event) => {

@@ -29,6 +29,9 @@ class MadlibForm extends Component {
 
    componentDidUpdate(prevProps) {
       if (prevProps.propPathing !== this.props.propPathing) {
+         this.setState({
+            usersWords: []
+         })
          const dbRef = firebase.database().ref('madlibData')
          dbRef.on('value', snapshot => {
             const userInputs = snapshot.val()[this.props.propPathing].userInputs
@@ -63,7 +66,7 @@ class MadlibForm extends Component {
                return (
                   <Fragment key={index}>
                      <label id={'input' + index} className={'input' + index} >{prompt.name}</label>
-                     <input type="text" htmlFor={'input' + index} name={prompt.value} value={this.state.usersWords[prompt.value]} onChange={(e) => this.handleChange(index, e)} required />
+                     <input type="text" htmlFor={'input' + index} name={prompt.value} value={this.state.usersWords[index][prompt.value]} onChange={(e) => this.handleChange(index, e)} required />
                   </Fragment>
                )
             })}
