@@ -155,15 +155,15 @@ class App extends Component {
             <label htmlFor="userName">by</label>
             <input onChange={this.handleUserName} type="text" id="userName" placeholder="YOUR NAME HERE" value={this.state.userName} required />
           </div>
+          <div onClick={(event) => this.slideMenu(event)} className={"madlibChoices" + (this.state.hideInputs ? ' hidden' : '') + (this.state.slideIn ? ' slideIn' : '')}>
+            <button onClick={(event) => this.switchMadlib(event)} value="dentist" >A Visit to the Dentist</button>
+            <button onClick={(event) => this.switchMadlib(event)} value="pirate" >Talk like a Pirate!</button>
+          </div>
           <p>{
             this.state.madlibCreated ? 
             'Great job! If you like what you\'ve done, Save it to our leaderboard. Or you can Go Back and try again.' 
             : 'The best part about Madlibs is that it\'s always a surprise! Write in the silly words below and Get Started!'
           }</p>
-          <div onClick={(event) => this.slideMenu(event)} className={"madlibChoices" + (this.state.hideInputs ? ' hidden' : '') + (this.state.slideIn ? ' slideIn' : '')}>
-            <button onClick={(event) => this.switchMadlib(event)} value="dentist" >A Visit to the Dentist</button>
-            <button onClick={(event) => this.switchMadlib(event)} value="pirate" >Talk like a Pirate!</button>
-          </div>
         </header>
         <main className="wrapper" >
 

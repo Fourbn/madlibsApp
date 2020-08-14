@@ -5,20 +5,10 @@ header {
    grid-gap: 10px;
    position: relative;
 
-   &::after {
-      content: '';
-      width: 88%;
-      height: 1px;
-      background: $green;
-      position: absolute;
-      bottom: 46px;
-      right: 9px;
-   }
-
    .userName {
       display: flex;
-      align-items: center;
-      padding-top: 10px;
+      align-items: flex-end;
+      padding-bottom: 8px;
    }
 
    h1 {
@@ -28,9 +18,11 @@ header {
    }
 
    p {
+      border-top: 1px solid $green;
       grid-row: 2;
       grid-column: 2 / 4;
       padding-left: 2px;
+      padding-top: 10px;
    }
 
    .madlibChoices {

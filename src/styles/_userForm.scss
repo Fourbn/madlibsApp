@@ -2,11 +2,12 @@
    margin-bottom: 20px;
    min-height: 50vh;
    display: grid;
-   grid-template-columns: 10% 90%;
+   grid-template-columns: 1fr 9fr;
    grid-gap: 10px;
 
    .formContainer {
       display: grid;
+      width: 100%;
       grid-column: 2;
       grid-template-columns: max-content 70%;
       grid-gap: 10px;

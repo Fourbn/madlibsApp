@@ -1,0 +1,28 @@
+@media (max-width: 565px) {
+   header h1 {
+      font-size: 2rem;
+   }
+
+   header .userName input {
+      font-size: 1rem;
+   }
+}
+
+@media (max-width: 472px) {
+   header h1 {
+      grid-column: 2 / 4;
+   }
+
+   header .userName {
+      grid-column: 2 / 4;
+   }
+
+   header p {
+      grid-row: 3;
+   }
+
+   .madlibPrompts input {
+      width: 80%;
+      font-size: 1.25rem;
+   }
+}
