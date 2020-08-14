@@ -81,7 +81,7 @@ class App extends Component {
 
 
 // =========================================
-  handleSave = (madlib) => {
+  handleSave = (madlib, event) => {
 
     const dbRef = firebase.database().ref('leaderboard');
     const dbObject = {
@@ -94,7 +94,8 @@ class App extends Component {
     if (this.state.alreadySaved === !true) {
       dbRef.push(dbObject);
     }
-    this.setState({alreadySaved: true})
+      this.setState({alreadySaved: true})
+      event.target.disabled = true
   }
 
   handleRefresh = () => {
@@ -140,7 +141,7 @@ class App extends Component {
             
             {this.state.hideInputs ?
             <Fragment>
-              <button onClick={ () => this.handleSave(this.state.madlib) }>
+              <button className="saveButton" onClick={ (event) => this.handleSave(this.state.madlib, event) }>
                 { this.state.alreadySaved ? 'Saved!' : 'Save Madlib!' }
               </button> 
               <button onClick={ this.handleRefresh } >Back to Start</button>

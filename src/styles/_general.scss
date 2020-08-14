@@ -55,4 +55,10 @@ button {
    display: flex;
    flex-wrap: wrap;
    justify-content: space-evenly;
+
+   .saveButton:disabled {
+      background-color: darkgrey;
+      border: 2px solid #505d68;
+      transition: background-color 1s, border 1s;
+   }
 }

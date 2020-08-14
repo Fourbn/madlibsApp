@@ -24,10 +24,18 @@
          position: absolute;
          right: -12px;
          top: -15px;
+         transition: color .3s;
 
          &:hover, 
          &:focus {
             color: $gold;
+            transition: color .3s;
+         }
+
+         &:disabled {
+            color: grey;
+            transition: color 1s;
+            cursor: default;
          }
       }
    }

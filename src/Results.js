@@ -50,8 +50,6 @@ class Results extends Component {
          return madlib.id === likeId
       })
 
-      console.log(likedMadlib[0])
-
       //Catches if the like button returns an undefined value and ensure that React doesn't break. The button just doesn't respond and the user can click again
       if (likedMadlib && likedMadlib[0]) {
          //Checks to see if the user has already clicked the button and submitted a like. If so, it will disable the button before they can submit another one.
