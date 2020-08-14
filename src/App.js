@@ -78,6 +78,9 @@ class App extends Component {
     })
   }
 
+  
+  // BUTTON EVENT HANDLERS
+  // =========================================
   handleFormSubmit = ( event, userInputs ) => {
     event.preventDefault();
     const wordArray = userInputs.map(( prompt ) => {
@@ -104,10 +107,7 @@ class App extends Component {
     }
   }
 
-
-// =========================================
   handleSave = ( madlib, event ) => {
-
     const dbRef = firebase.database().ref( 'leaderboard' );
     const dbObject = {
       madlib: madlib,
@@ -115,14 +115,13 @@ class App extends Component {
       user: this.state.userName,
       likes: 0
     }
-
     if ( this.state.alreadySaved === !true ) {
       dbRef.push( dbObject );
     }
-
     this.setState( {alreadySaved: true} )
     event.target.disabled = true
   }
+
 
   handleRefresh = () => {
     this.setState({
@@ -132,9 +131,9 @@ class App extends Component {
     })
   }
 
+
   switchMadlib = ( event ) => {
     const confirmed = window.confirm('If you switch Madlibs, you\'ll lose all your words! Are you sure?')
-
     if ( confirmed ) {
       this.setState({
         dbPath: event.target.value,
