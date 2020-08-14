@@ -15,7 +15,7 @@ header {
       right: 9px;
    }
 
-   form {
+   .userName {
       display: flex;
       align-items: center;
       padding-top: 10px;
@@ -31,5 +31,40 @@ header {
       grid-row: 2;
       grid-column: 2 / 4;
       padding-left: 2px;
+   }
+
+   .madlibChoices {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: $darkBrown;
+      width: 210px;
+      height: 150px;
+      border-radius: 20%;
+      border-top: 1px solid $darkBrown;
+      border-bottom: 1px solid $darkBrown;
+      top: 30px;
+      left: -178px;
+      z-index: 10;
+      cursor: pointer;
+      transition: left .3s;
+
+      button {
+         width: 130px;
+         height: 100%;
+         z-index: 100;
+      }
+   }
+
+   .hidden {
+      left: -1000px;
+      transition: left .3s;
+   }
+
+   .slideIn {
+      left: -39px;
+      transition: left .3s;
    }
 }

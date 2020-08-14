@@ -10,6 +10,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      dbPath: 'dentist',
+      title: '',
       madlibTemplate: [],
       spillOver: '',
       madlib: '',
@@ -18,19 +20,37 @@ class App extends Component {
       hideInputs: false,
       alreadySaved: false,
       restart: false,
+      slideIn: false
     };
   }
 
   componentDidMount() {
-    const dbRef = firebase.database().ref('madlibData/dentist')
+    const dbRef = firebase.database().ref('madlibData/' + this.state.dbPath)
 
     dbRef.on('value', (snapshot) => {
       this.setState({
+        title: snapshot.val().title,
         madlibTemplate: snapshot.val().story,
         spillOver: snapshot.val().spillOver
       })
     })
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.dbPath !== this.state.dbPath) {
+      const dbRef = firebase.database().ref('madlibData/' + this.state.dbPath)
+  
+      dbRef.on('value', (snapshot) => {
+        this.setState({
+          title: snapshot.val().title,
+          madlibTemplate: snapshot.val().story,
+          spillOver: snapshot.val().spillOver
+        })
+      })
+    }
+
+  }
+
   handleUserName = (event) => {
     this.setState({
       userName: event.target.value
@@ -75,7 +95,7 @@ class App extends Component {
         hideInputs: true
       })
     } else {
-      alert('Error')
+      alert('Oops! It looks like you missed a word. Make sure each prompt has a word buddy.')
     }
   }
 
@@ -86,7 +106,7 @@ class App extends Component {
     const dbRef = firebase.database().ref('leaderboard');
     const dbObject = {
       madlib: madlib,
-      title: 'A Visit to the Dentist',
+      title: this.state.title,
       user: this.state.userName,
       likes: 0
     }
@@ -94,8 +114,9 @@ class App extends Component {
     if (this.state.alreadySaved === !true) {
       dbRef.push(dbObject);
     }
-      this.setState({alreadySaved: true})
-      event.target.disabled = true
+
+    this.setState({alreadySaved: true})
+    event.target.disabled = true
   }
 
   handleRefresh = () => {
@@ -105,27 +126,49 @@ class App extends Component {
       alreadySaved: false,
     })
   }
+
+  switchMadlib = (event) => {
+    const confirmed = window.confirm('If you switch Madlibs, you\'ll lose all your words! Are you sure?')
+
+    if (confirmed) {
+      this.setState({
+        dbPath: event.target.value,
+      })
+    }
+  }
+
+  slideMenu = (event) => {
+    if (event.target.nodeName === 'DIV') {
+      this.setState({
+        slideIn: !this.state.slideIn
+      })
+    }
+  }
 // ===============================================
 
   render() {
     return (
       <Fragment>
         <header className="wrapper" >
-          <h1>A Visit to the Dentist</h1>
-          <form action="" id="userNameForm">
+          <h1>{this.state.title}</h1>
+          <div className="userName">
             <label htmlFor="userName">by</label>
             <input onChange={this.handleUserName} type="text" id="userName" placeholder="YOUR NAME HERE" value={this.state.userName} required />
-          </form>
+          </div>
           <p>{
             this.state.madlibCreated ? 
             'Great job! If you like what you\'ve done, Save it to our leaderboard. Or you can Go Back and try again.' 
             : 'The best part about Madlibs is that it\'s always a surprise! Write in the silly words below and Get Started!'
           }</p>
+          <div onClick={(event) => this.slideMenu(event)} className={"madlibChoices" + (this.state.hideInputs ? ' hidden' : '') + (this.state.slideIn ? ' slideIn' : '')}>
+            <button onClick={(event) => this.switchMadlib(event)} value="dentist" >A Visit to the Dentist</button>
+            <button onClick={(event) => this.switchMadlib(event)} value="pirate" >Talk like a Pirate!</button>
+          </div>
         </header>
         <main className="wrapper" >
 
           {this.state.hideInputs ? null : 
-            <MadlibForm propFormSubmit={ this.handleFormSubmit } />
+            <MadlibForm propFormSubmit={ this.handleFormSubmit } propPathing={ this.state.dbPath } />
           }
             
           {this.state.madlibCreated ? 
