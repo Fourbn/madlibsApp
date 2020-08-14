@@ -31,7 +31,6 @@ input, textarea {
    height: 30px;
    background: $siteBackground;
    resize: none;
-   padding-bottom: -5px;
 }
 
 .wrapper {
@@ -60,5 +59,6 @@ button {
       background-color: darkgrey;
       border: 2px solid #505d68;
       transition: background-color 1s, border 1s;
+      cursor: default;
    }
 }

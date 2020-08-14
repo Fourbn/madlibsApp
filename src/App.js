@@ -10,12 +10,14 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      // Database information
       dbPath: 'dentist',
       title: '',
       madlibTemplate: [],
       spillOver: '',
       madlib: '',
       userName: '',
+      // Ternary toggles
       madlibCreated: false,
       hideInputs: false,
       alreadySaved: false,
@@ -24,6 +26,7 @@ class App extends Component {
     };
   }
 
+  // Initial database call once render has completed
   componentDidMount() {
     const dbRef = firebase.database().ref( 'madlibData/' + this.state.dbPath )
 
@@ -36,6 +39,7 @@ class App extends Component {
     })
   }
 
+  //If the user switches madlibs, React calls this lifecycle method and updates state
   componentDidUpdate( prevProps, prevState ) {
     if ( prevState.dbPath !== this.state.dbPath ) {
       const dbRef = firebase.database().ref( 'madlibData/' + this.state.dbPath )
@@ -107,6 +111,7 @@ class App extends Component {
     }
   }
 
+
   handleSave = ( madlib, event ) => {
     const dbRef = firebase.database().ref( 'leaderboard' );
     const dbObject = {
@@ -177,23 +182,26 @@ class App extends Component {
             className={"madlibChoices" + 
             (this.state.hideInputs ? ' hidden' : '') + 
             (this.state.slideIn ? ' slideIn' : '')}>
-
-              <button onClick={( event ) => this.switchMadlib( event )} 
-              value="dentist" 
-              aria-label="Click here to choose the Dentist Madlib" >
-                A Visit to the Dentist
+              <button 
+                onClick={( event ) => this.switchMadlib( event )} 
+                value="dentist" 
+                aria-label="Click here to choose the Dentist Madlib" >
+                  A Visit to the Dentist
               </button>
-              <button onClick={( event ) => this.switchMadlib( event )} 
-              value="pirate" 
-              aria-label="Click here to choose the Pirate Madlib" >
-                Talk like a Pirate!
+              <button 
+                onClick={( event ) => this.switchMadlib( event )} 
+                value="pirate" 
+                aria-label="Click here to choose the Pirate Madlib" >
+                  Talk like a Pirate!
               </button>
           </div>
         </header>
         <main className="wrapper" >
 
           {this.state.hideInputs ? null : 
-            <MadlibForm propFormSubmit={ this.handleFormSubmit } propPathing={ this.state.dbPath } />
+            <MadlibForm 
+              propFormSubmit={ this.handleFormSubmit } 
+              propPathing={ this.state.dbPath } />
           }
             
           {this.state.madlibCreated ? 
@@ -213,14 +221,16 @@ class App extends Component {
             
             {this.state.hideInputs ?
             <Fragment>
-              <button className="saveButton" 
-              onClick={ ( event ) => this.handleSave( this.state.madlib, event ) }>
-                { this.state.alreadySaved ? 'Saved!' : 'Save Madlib!' }
+              <button 
+                className="saveButton" 
+                onClick={ ( event ) => this.handleSave( this.state.madlib, event ) }>
+                  { this.state.alreadySaved ? 'Saved!' : 'Save Madlib!' }
               </button> 
-              <button onClick={ this.handleRefresh } 
-              title="This will reset your words" 
-              aria-label="This will also reset your words" >
-                Back to Start
+              <button 
+                onClick={ this.handleRefresh } 
+                title="This will reset your words" 
+                aria-label="This will also reset your words" >
+                  Back to Start
               </button>
             </Fragment>
             : null}

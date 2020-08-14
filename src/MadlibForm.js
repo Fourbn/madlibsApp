@@ -27,6 +27,7 @@ class MadlibForm extends Component {
       })
    }
 
+   //Same as App.js, lifecycle method is called when the user switches madlib templates
    componentDidUpdate( prevProps ) {
       if ( prevProps.propPathing !== this.props.propPathing ) {
          this.setState({
@@ -60,19 +61,29 @@ class MadlibForm extends Component {
 
    render() {
       return(
-         <form id="madlibPrompts" 
-         className="madlibPrompts" 
-         onSubmit={( event ) => this.props.propFormSubmit( event, this.state.usersWords )} >
-            <div className="formContainer">
-            {this.state.prompts.map(( prompt, index ) => {
-               return (
-                  <Fragment key={index}>
-                     <label id={'input' + index} className={'input' + index} >{prompt.name}</label>
-                     <input type="text" htmlFor={'input' + index} name={prompt.value} value={this.state.usersWords[index][prompt.value]} onChange={( event ) => this.handleChange( index, event )} required />
-                  </Fragment>
-               )
-            })}
-            </div>
+         <form 
+            id="madlibPrompts" 
+            className="madlibPrompts" 
+            onSubmit={( event ) => this.props.propFormSubmit( event, this.state.usersWords )} >
+               <div className="formContainer">
+               {this.state.prompts.map(( prompt, index ) => {
+                  return (
+                     <Fragment key={index}>
+                        <label 
+                           id={'input' + index} 
+                           className={'input' + index} >{prompt.name}
+                        </label>
+                        <input 
+                           type="text" 
+                           htmlFor={'input' + index} 
+                           name={prompt.value} 
+                           value={this.state.usersWords[index][prompt.value]} 
+                           onChange={( event ) => this.handleChange( index, event )} 
+                           required />
+                     </Fragment>
+                  )
+               })}
+               </div>
          </form>
       )
    }

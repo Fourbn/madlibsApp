@@ -1,9 +1,12 @@
+
+// MINOR: Reduce leaderboard grid size to 1 column
 @media (max-width: 700px) {
    .leaderboard .leaderboardGrid {
       grid-template-columns: 1fr;
    }
 }
 
+// MINOR: Reduce font-size of header h1 and user name input
 @media (max-width: 565px) {
    header h1 {
       font-size: 2rem;
@@ -14,6 +17,8 @@
    }
 }
 
+//MAJOR: Adjust layout of header so that user name input is underneath the title
+//MINOR: make the madlib prompt inputs a bit smaller so they don't hit the edge of the screen
 @media (max-width: 472px) {
    header h1 {
       grid-column: 2 / 4;

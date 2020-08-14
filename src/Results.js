@@ -15,7 +15,6 @@ class Results extends Component {
       super()
       this.state = {
          leaderboard: [],
-         toggleLiked: false
       }
    }
 
@@ -23,10 +22,8 @@ class Results extends Component {
       this._isMounted = true;
 
       const dbRef = firebase.database().ref( 'leaderboard' );
-
       dbRef.on('value', ( snapshot ) => {
          const data = snapshot.val();
-
          const updateLeaderboard = [];
 
          for ( let userMadlib in data ) {
@@ -50,7 +47,8 @@ class Results extends Component {
          return madlib.id === likeId
       })
 
-      //Catches if the like button returns an undefined value and ensure that React doesn't break. The button just doesn't respond and the user can click again. This if statement idea is from Colin who went through my code to find a way to catch it breaking.
+      //Catches if the like button returns an undefined value and ensure that React doesn't break. The button just doesn't respond and the user can click again. 
+      //This if statement idea is from Colin who went through my code to find a way to catch it breaking.
       if (likedMadlib && likedMadlib[0]) {
          //Checks to see if the user has already clicked the button and submitted a like. If so, it will disable the button before they can submit another one.
          let click = 0
@@ -81,11 +79,12 @@ class Results extends Component {
                      <li key={ madlibObject.id } >
                         <div className="header">
                            <h3>{ madlibObject.madlib.title } by { madlibObject.madlib.user }</h3>
-                           <button id={ madlibObject.id } 
-                           data-id={ madlibObject.id } 
-                           onClick={ this.handleLike } 
-                           aria-label="Click this button to like this Madlib" >
-                              <FontAwesomeIcon data-id={madlibObject.id} icon={faThumbsUp} /> {madlibObject.madlib.likes}
+                           <button 
+                              id={ madlibObject.id } 
+                              data-id={ madlibObject.id } 
+                              onClick={ this.handleLike } 
+                              aria-label="Click this button to like this Madlib" >
+                                 <FontAwesomeIcon data-id={madlibObject.id} icon={faThumbsUp} /> {madlibObject.madlib.likes}
                            </button>
                         </div>
                         <p>{ parse( madlibObject.madlib.madlib ) }</p>
