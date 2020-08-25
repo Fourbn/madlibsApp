@@ -70,15 +70,16 @@ class MadlibForm extends Component {
                   return (
                      <Fragment key={index}>
                         <label 
-                           id={'input' + index} 
-                           className={'input' + index} >{prompt.name}
+                           htmlFor={'input' + index}>
+                              {prompt.name}
                         </label>
                         <input 
                            type="text" 
-                           htmlFor={'input' + index} 
+                           id={'input' + index} 
                            name={prompt.value} 
                            value={this.state.usersWords[index][prompt.value]} 
-                           onChange={( event ) => this.handleChange( index, event )} 
+                           onChange={( event ) => this.handleChange( index, event )}
+                           onFocus={() => this.props.propFocusOff()} 
                            required />
                      </Fragment>
                   )

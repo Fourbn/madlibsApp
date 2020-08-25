@@ -68,9 +68,10 @@ class App extends Component {
     return failedWords.length === 0
   }
 
-  generateMadlib = ( array ) => {
-    const finishedLib = [...this.state.madlibTemplate].map(( i, k ) => {
-      return i + '<span>' + array[k] + '</span>'
+  generateMadlib = ( inputArray, classNames ) => {
+    const finishedLib = [...this.state.madlibTemplate].map(( userWord, index ) => {
+      // return i + '<span>' + array[k] + '</span>'
+      return `${userWord} <span class="${classNames[index]}">${inputArray[index]}</span>`
     })
 
     if ( this.state.spillOver !== 0 ) {
@@ -94,6 +95,15 @@ class App extends Component {
       return true
     })
 
+    const classNames = userInputs.map(( name ) => {
+      for (const object in name) {
+        return object.replace(/[0-9]/g, '')
+      }
+      return true
+    })
+
+    console.log(classNames)
+
     if ( this.state.userName === '' ) {
       this.setState({
         userName: 'Anonymous'
@@ -101,7 +111,7 @@ class App extends Component {
     }
 
     if ( this.handleErrors( wordArray ) ) {
-      this.generateMadlib( wordArray )
+      this.generateMadlib( wordArray, classNames )
       this.setState({
         madlibCreated: !this.state.madlibCreated,
         hideInputs: true
@@ -143,6 +153,7 @@ class App extends Component {
       this.setState({
         dbPath: event.target.value,
       })
+      document.getElementById('input0').focus();
     }
   }
 
@@ -152,6 +163,18 @@ class App extends Component {
     })
   }
 // ===============================================
+
+focusOnNav = () => {
+  this.setState({
+    slideIn: true
+  })
+}
+
+focusOffNav = () => {
+  this.setState({
+    slideIn: false
+  })
+}
 
   render() {
     return (
@@ -166,6 +189,7 @@ class App extends Component {
             </label>
             <input 
               onChange={ this.handleUserName } 
+              onFocus={ this.focusOffNav }
               type="text" id="userName" 
               placeholder="YOUR NAME HERE" 
               value={ this.state.userName } 
@@ -182,14 +206,18 @@ class App extends Component {
             className={"madlibChoices" + 
             (this.state.hideInputs ? ' hidden' : '') + 
             (this.state.slideIn ? ' slideIn' : '')}>
+              
               <button 
                 onClick={( event ) => this.switchMadlib( event )} 
+                onFocus={ this.focusOnNav }
                 value="dentist" 
                 aria-label="Click here to choose the Dentist Madlib" >
                   A Visit to the Dentist
               </button>
+              
               <button 
                 onClick={( event ) => this.switchMadlib( event )} 
+                onFocus={ this.focusOnNav }
                 value="pirate" 
                 aria-label="Click here to choose the Pirate Madlib" >
                   Talk like a Pirate!
@@ -201,7 +229,8 @@ class App extends Component {
           {this.state.hideInputs ? null : 
             <MadlibForm 
               propFormSubmit={ this.handleFormSubmit } 
-              propPathing={ this.state.dbPath } />
+              propPathing={ this.state.dbPath }
+              propFocusOff={ this.focusOffNav } />
           }
             
           {this.state.madlibCreated ? 
