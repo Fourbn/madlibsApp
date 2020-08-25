@@ -4,6 +4,7 @@ import parse from 'html-react-parser';
 import MadlibForm from './MadlibForm.js';
 import Results from './Results.js';
 import './styles/styles.scss'
+import swal from 'sweetalert';
 
 
 class App extends Component {
@@ -22,7 +23,7 @@ class App extends Component {
       hideInputs: false,
       alreadySaved: false,
       restart: false,
-      slideIn: false
+      slideIn: false,
     };
   }
 
@@ -61,10 +62,14 @@ class App extends Component {
   }
 
   handleErrors = ( array ) => {
-    const failedWords = array.filter(( i ) => {
-      return i === ''
+    const failedWordsLocation = []
+    array.forEach(( i, k ) => {
+      if (i === '') {
+        failedWordsLocation.push(k) 
+      }
     })
-    return failedWords.length === 0
+    console.log(failedWordsLocation)
+    return failedWordsLocation
   }
 
   generateMadlib = ( inputArray, classNames ) => {
@@ -106,17 +111,22 @@ class App extends Component {
       })
     }
 
-    if ( this.handleErrors( wordArray ) ) {
+    if ( this.handleErrors(wordArray).length === 0 ) {
       this.generateMadlib( wordArray, classNames )
       this.setState({
         madlibCreated: !this.state.madlibCreated,
         hideInputs: true
       })
     } else {
-      alert('Oops! It looks like you missed a word. Make sure each prompt has a word buddy.')
+      swal({
+        title: 'Oops!',
+        text: 'Looks like you missed a word.',
+        icon: 'error'
+      }).then(() => {
+        document.getElementById(`input${this.handleErrors(wordArray)[0]}`).focus()
+      })
     }
   }
-
 
   handleSave = ( madlib, event ) => {
     const dbRef = firebase.database().ref( 'leaderboard' );
@@ -141,16 +151,25 @@ class App extends Component {
       alreadySaved: false,
     })
   }
-
-
+// ===============================================
+// Switch Madlib button handlers
   switchMadlib = ( event ) => {
-    const confirmed = window.confirm('If you switch Madlibs, you\'ll lose all your words! Are you sure?')
-    if ( confirmed ) {
-      this.setState({
-        dbPath: event.target.value,
+    const dbPath = event.target.value
+    if (dbPath !== this.state.dbPath) {
+      swal({
+        title: 'Are you sure?',
+        text: 'If you change your Madlib, you will lose any words you have already typed out',
+        buttons: ['Nevermind', 'That\'s fine'],
+        dangerMode: true
+      }).then((response) => {
+        if ( response ) {
+          this.setState({
+            dbPath
+          })
+        }
       })
-      document.getElementById('input0').focus();
     }
+    document.getElementById('input0').focus();
   }
 
   slideMenu = () => {
@@ -158,19 +177,19 @@ class App extends Component {
       slideIn: !this.state.slideIn
     })
   }
+
+  focusOnNav = () => {
+    this.setState({
+      slideIn: true
+    })
+  }
+  focusOffNav = () => {
+    this.setState({
+      slideIn: false
+    })
+  }
 // ===============================================
 
-focusOnNav = () => {
-  this.setState({
-    slideIn: true
-  })
-}
-
-focusOffNav = () => {
-  this.setState({
-    slideIn: false
-  })
-}
 
   render() {
     return (

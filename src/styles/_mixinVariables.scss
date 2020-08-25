@@ -18,11 +18,13 @@ $palePurple: #D2CEED;
    padding: 10px 20px;
    background: $siteBackground;
    border: 2px solid $darkBrown;
+   transition: background-color .3s;
    cursor: pointer;
 }
 
 @mixin buttonHover {
    background-color: $gold;
    border: 2px solid $darkBrown;
+   transition: background-color .3s;
 }
 

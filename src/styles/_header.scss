@@ -43,7 +43,7 @@ header {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: $darkBrown;
+      background-color: $darkBrown;
       width: 210px;
       height: 150px;
       border-radius: 20%;
@@ -60,7 +60,7 @@ header {
 
       &:hover, 
       &:focus-within {
-         background: $gold;
+         background-color: $gold;
       }
 
       button {
@@ -103,4 +103,13 @@ header {
    100% {
       left: -178px;
    }
+}
+
+// custom modal styles
+.swal-text {
+   text-align: center;
+}
+
+.swal-modal {
+   font-family: $bodyText;
 }

@@ -40,7 +40,9 @@ input, textarea {
 }
 
 // BUTTON & BUTTON NAV STYLES
-button {
+
+header button,
+main button {
    @include button;
 
    &:hover, 
