@@ -17,7 +17,7 @@ class App extends Component {
       spillOver: '',
       madlib: '',
       userName: '',
-      // Ternary toggles
+      // Turnary toggles
       madlibCreated: false,
       hideInputs: false,
       alreadySaved: false,
@@ -52,7 +52,6 @@ class App extends Component {
         })
       })
     }
-
   }
 
   handleUserName = ( event ) => {
@@ -70,7 +69,6 @@ class App extends Component {
 
   generateMadlib = ( inputArray, classNames ) => {
     const finishedLib = [...this.state.madlibTemplate].map(( userWord, index ) => {
-      // return i + '<span>' + array[k] + '</span>'
       return `${userWord} <span class="${classNames[index]}">${inputArray[index]}</span>`
     })
 
@@ -200,7 +198,7 @@ focusOffNav = () => {
               : 'The best part about Madlibs is that it\'s always a surprise! Write in the silly words below and Get Started!'
             }
           </p>
-          <div onClick={ this.slideMenu } 
+          <nav onClick={ this.slideMenu } 
             className={"madlibChoices" + 
             (this.state.hideInputs ? ' hidden' : '') + 
             (this.state.slideIn ? ' slideIn' : '')}>
@@ -220,7 +218,7 @@ focusOffNav = () => {
                 aria-label="Click here to choose the Pirate Madlib" >
                   Talk like a Pirate!
               </button>
-          </div>
+          </nav>
         </header>
         <main className="wrapper" >
 
