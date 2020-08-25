@@ -102,8 +102,6 @@ class App extends Component {
       return true
     })
 
-    console.log(classNames)
-
     if ( this.state.userName === '' ) {
       this.setState({
         userName: 'Anonymous'
