@@ -7,13 +7,13 @@ footer {
       display: inline-block;
       color: inherit;
       text-decoration: none;
-      padding: 0 7px;
-      transition: background-color .3s;
-
+      transition: background-color .3s, padding .3s;;
+      
       &:hover, 
       &:focus {
+         padding: 0 7px;
          background-color: $palePurple;
-         transition: background-color .3s;
+         transition: background-color .3s, padding .3s;
       }
    }
 }
