@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/madlibsApp/static/css/main.bcbe7d5a.chunk.css",
+    "main.css": "/madlibsApp/static/css/main.02c86f89.chunk.css",
     "main.js": "/madlibsApp/static/js/main.68357770.chunk.js",
     "main.js.map": "/madlibsApp/static/js/main.68357770.chunk.js.map",
     "runtime-main.js": "/madlibsApp/static/js/runtime-main.1acb9672.js",
@@ -8,15 +8,15 @@
     "static/js/2.f4b02682.chunk.js": "/madlibsApp/static/js/2.f4b02682.chunk.js",
     "static/js/2.f4b02682.chunk.js.map": "/madlibsApp/static/js/2.f4b02682.chunk.js.map",
     "index.html": "/madlibsApp/index.html",
-    "precache-manifest.781d0a2d21ad5920d5fcdffc911301bd.js": "/madlibsApp/precache-manifest.781d0a2d21ad5920d5fcdffc911301bd.js",
+    "precache-manifest.dffeab160330986944ce975b1b3f693c.js": "/madlibsApp/precache-manifest.dffeab160330986944ce975b1b3f693c.js",
     "service-worker.js": "/madlibsApp/service-worker.js",
-    "static/css/main.bcbe7d5a.chunk.css.map": "/madlibsApp/static/css/main.bcbe7d5a.chunk.css.map",
+    "static/css/main.02c86f89.chunk.css.map": "/madlibsApp/static/css/main.02c86f89.chunk.css.map",
     "static/js/2.f4b02682.chunk.js.LICENSE.txt": "/madlibsApp/static/js/2.f4b02682.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.1acb9672.js",
     "static/js/2.f4b02682.chunk.js",
-    "static/css/main.bcbe7d5a.chunk.css",
+    "static/css/main.02c86f89.chunk.css",
     "static/js/main.68357770.chunk.js"
   ]
 }

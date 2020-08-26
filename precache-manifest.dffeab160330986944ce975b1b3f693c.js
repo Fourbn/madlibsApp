@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c789184911c524453e9f967af5562b8d",
+    "revision": "8da2cf022c8a43fcd393d3415c33ea33",
     "url": "/madlibsApp/index.html"
   },
   {
-    "revision": "8a86ba94424d9e675a0c",
-    "url": "/madlibsApp/static/css/main.bcbe7d5a.chunk.css"
+    "revision": "c3c2d21ed39203996c64",
+    "url": "/madlibsApp/static/css/main.02c86f89.chunk.css"
   },
   {
     "revision": "195c3affb71f5eb68ec7",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/madlibsApp/static/js/2.f4b02682.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8a86ba94424d9e675a0c",
+    "revision": "c3c2d21ed39203996c64",
     "url": "/madlibsApp/static/js/main.68357770.chunk.js"
   },
   {
