@@ -297,7 +297,7 @@ class App extends Component {
           {this.state.madlibCreated ? <Results /> : null}
         </main>
         <footer className="wrapper" >
-          <p>Created by Philip Turkiewicz 2020</p>
+          <p>Created by <a href="https://www.codeturkie.io">Philip Turkiewicz</a> 2020</p>
         </footer>
       </Fragment>
     );
