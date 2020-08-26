@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/philipTurkiewiczProjectFive/static/css/main.748bd5f2.chunk.css",
-    "main.js": "/philipTurkiewiczProjectFive/static/js/main.fc09bc01.chunk.js",
-    "main.js.map": "/philipTurkiewiczProjectFive/static/js/main.fc09bc01.chunk.js.map",
-    "runtime-main.js": "/philipTurkiewiczProjectFive/static/js/runtime-main.ad74f01c.js",
-    "runtime-main.js.map": "/philipTurkiewiczProjectFive/static/js/runtime-main.ad74f01c.js.map",
-    "static/js/2.59017a8d.chunk.js": "/philipTurkiewiczProjectFive/static/js/2.59017a8d.chunk.js",
-    "static/js/2.59017a8d.chunk.js.map": "/philipTurkiewiczProjectFive/static/js/2.59017a8d.chunk.js.map",
-    "index.html": "/philipTurkiewiczProjectFive/index.html",
-    "precache-manifest.ca9d1fe6fe19ca0e1c5fbac20363bf21.js": "/philipTurkiewiczProjectFive/precache-manifest.ca9d1fe6fe19ca0e1c5fbac20363bf21.js",
-    "service-worker.js": "/philipTurkiewiczProjectFive/service-worker.js",
-    "static/css/main.748bd5f2.chunk.css.map": "/philipTurkiewiczProjectFive/static/css/main.748bd5f2.chunk.css.map",
-    "static/js/2.59017a8d.chunk.js.LICENSE.txt": "/philipTurkiewiczProjectFive/static/js/2.59017a8d.chunk.js.LICENSE.txt"
+    "main.css": "/madlibsApp/static/css/main.bcbe7d5a.chunk.css",
+    "main.js": "/madlibsApp/static/js/main.68357770.chunk.js",
+    "main.js.map": "/madlibsApp/static/js/main.68357770.chunk.js.map",
+    "runtime-main.js": "/madlibsApp/static/js/runtime-main.1acb9672.js",
+    "runtime-main.js.map": "/madlibsApp/static/js/runtime-main.1acb9672.js.map",
+    "static/js/2.f4b02682.chunk.js": "/madlibsApp/static/js/2.f4b02682.chunk.js",
+    "static/js/2.f4b02682.chunk.js.map": "/madlibsApp/static/js/2.f4b02682.chunk.js.map",
+    "index.html": "/madlibsApp/index.html",
+    "precache-manifest.781d0a2d21ad5920d5fcdffc911301bd.js": "/madlibsApp/precache-manifest.781d0a2d21ad5920d5fcdffc911301bd.js",
+    "service-worker.js": "/madlibsApp/service-worker.js",
+    "static/css/main.bcbe7d5a.chunk.css.map": "/madlibsApp/static/css/main.bcbe7d5a.chunk.css.map",
+    "static/js/2.f4b02682.chunk.js.LICENSE.txt": "/madlibsApp/static/js/2.f4b02682.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.ad74f01c.js",
-    "static/js/2.59017a8d.chunk.js",
-    "static/css/main.748bd5f2.chunk.css",
-    "static/js/main.fc09bc01.chunk.js"
+    "static/js/runtime-main.1acb9672.js",
+    "static/js/2.f4b02682.chunk.js",
+    "static/css/main.bcbe7d5a.chunk.css",
+    "static/js/main.68357770.chunk.js"
   ]
 }
