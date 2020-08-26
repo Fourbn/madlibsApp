@@ -24,11 +24,24 @@ class App extends Component {
       alreadySaved: false,
       restart: false,
       slideIn: false,
+      noticeMe: false
     };
   }
 
   // Initial database call once render has completed
   componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        noticeMe: true
+      })
+
+      setTimeout(() => {
+        this.setState({
+          noticeMe: false
+        })
+      }, 1000)
+    }, 4000);
+
     const dbRef = firebase.database().ref( 'madlibData/' + this.state.dbPath )
 
     dbRef.on('value', ( snapshot ) => {
@@ -220,7 +233,8 @@ class App extends Component {
           <nav onClick={ this.slideMenu } 
             className={"madlibChoices" + 
             (this.state.hideInputs ? ' hidden' : '') + 
-            (this.state.slideIn ? ' slideIn' : '')}>
+            (this.state.slideIn ? ' slideIn' : '') +
+            (this.state.noticeMe ? ' noticeMe' : '') }>
               
               <button 
                 onClick={( event ) => this.switchMadlib( event )} 

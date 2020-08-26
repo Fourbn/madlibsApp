@@ -54,8 +54,6 @@ header {
       left: -178px;
       z-index: 10;
       cursor: pointer;
-      animation: noticeMe .7s linear 1;
-      animation-delay: 4s;
       transition: left .3s;
 
       &:hover, 
@@ -83,26 +81,29 @@ header {
 
 @keyframes noticeMe {
    0% {
-      left: -175px;
+      transform: translateX(0px);
    }
 
    25% {
-      left: -188px;
+      transform: translateX(-12px);
       background: $gold;
    }
 
    50% {
-      left: -170px;
+      transform: translateX(15px);
    }
 
    75% {
-      left: -183px;
+      transform: translateX(-5px);
       background: $darkBrown;
    }
 
    100% {
-      left: -178px;
+      transform: translateX(0px);
    }
+}
+.noticeMe {
+   animation: noticeMe .7s linear 1;
 }
 
 // custom modal styles
